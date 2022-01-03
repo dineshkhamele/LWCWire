@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" title="page" >
+
+ <head>
+    <title>HTML Elements Reference</title>
+</head>
+
+<style>
+h1 {
+  color:red;
+}
+  </style>
+
+<body>
+
+ <h1>Example of custom element</h1>
+<my-custom-tag></my-custom-tag>
+<my-custom-tag></my-custom-tag>
+<h1>end of custom element</h1>
+
+<script>
+  class LightningElement extends HTMLElement{
+}    
+
+class QuickQuoteBaseClass extends LightningElement {
+   innerHTML;
+
+   constructor(){
+      super();
+         
+      this.innerHTML = `
+         <style>
+             h1 {
+                 color:green;
+             }
+         </style>
+       <h1 >This is custom Tag</h1>
+       <p>We are extending HTMLElement which is part of the browser</p>
+      `;  
+  
+  let shadowRoot = this.attachShadow({mode:'open'});
+shadowRoot.innerHTML =this.innerHTML;
+}
+}
+
+// below line should be out of class
+// this makes the connection between the custom tag and it's rendering 
+  window.customElements.define('my-custom-tag',QuickQuoteBaseClass)
+</script>
+
+</body>
+
+</html>
