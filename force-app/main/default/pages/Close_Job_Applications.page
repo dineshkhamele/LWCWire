@@ -1,0 +1,3 @@
+<apex:page standardController="Job_Application__c" tabStyle="Job_Application__c" recordSetVar="AllJobApplications">
+
+</apex:page>

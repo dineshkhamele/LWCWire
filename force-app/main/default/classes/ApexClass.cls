@@ -16,7 +16,8 @@ public with sharing class ApexClass {
 
             return 'Text = ' + text;
         } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
+            //throw new AuraHandledException(e.getMessage());
+            return 'error';
         }
     } 
 
