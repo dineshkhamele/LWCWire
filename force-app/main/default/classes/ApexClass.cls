@@ -14,7 +14,7 @@ public with sharing class ApexClass {
 
             // insert aContact;
 
-            return 'Text = ' + text;
+            return 'Text = ' + text ;
         } catch (Exception e) {
             //throw new AuraHandledException(e.getMessage());
             return 'error';
