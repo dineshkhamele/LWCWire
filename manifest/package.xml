@@ -21,7 +21,7 @@
         <members>*</members>
         <name>ApexTrigger</name>
     </types>
-    <types>
+   <!-- <types>
         <members>*</members>
         <name>AuraDefinitionBundle</name>
     </types>
@@ -32,6 +32,6 @@
     <types>
         <members>*</members>
         <name>StaticResource</name>
-    </types>
+    </types> --> -->
     <version>52.0</version>
 </Package>
