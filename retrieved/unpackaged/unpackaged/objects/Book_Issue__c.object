@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Book__c</fullName>
+        <externalId>false</externalId>
+        <label>Book</label>
+        <referenceTo>Book__c</referenceTo>
+        <relationshipLabel>Books Issue</relationshipLabel>
+        <relationshipName>Books_Issue</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Due_Date__c</fullName>
+        <defaultValue>TODAY() + 2 + (
+ IF( 
+      WEEKDAY( Today() + 2) = 1   
+        , 1
+        ,0
+    ) 
+)</defaultValue>
+        <externalId>false</externalId>
+        <label>Due Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Issue_Date__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <externalId>false</externalId>
+        <label>Issue Date</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Member__c</fullName>
+        <externalId>false</externalId>
+        <label>Member</label>
+        <referenceTo>Member__c</referenceTo>
+        <relationshipLabel>Books Issue</relationshipLabel>
+        <relationshipName>Books_Issue</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Return_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Return Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>Book Issue</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Book__c</columns>
+        <columns>Member__c</columns>
+        <columns>Issue_Date__c</columns>
+        <columns>Due_Date__c</columns>
+        <columns>Return_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Issued_Books</fullName>
+        <columns>NAME</columns>
+        <columns>Book__c</columns>
+        <columns>Member__c</columns>
+        <columns>Issue_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Return_Date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>Issued Books</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{0000}</displayFormat>
+        <label>Book Issue Id</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Books Issue</pluralLabel>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Book__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Member__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Issue_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Due_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Return_Date__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Book_is_available</fullName>
+        <active>true</active>
+        <errorConditionFormula>Book__r.Issue_Count__c &gt; 0 &amp;&amp; ISBLANK( Return_Date__c )</errorConditionFormula>
+        <errorDisplayField>Book__c</errorDisplayField>
+        <errorMessage>This book is not available</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Members_are_not_allowed_more_than_2_book</fullName>
+        <active>true</active>
+        <errorConditionFormula>Member__r.Books_Issued__c &gt;= 2 &amp;&amp;  ISBLANK( Return_Date__c )</errorConditionFormula>
+        <errorDisplayField>Member__c</errorDisplayField>
+        <errorMessage>More than two books are not allowed to issue.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>
