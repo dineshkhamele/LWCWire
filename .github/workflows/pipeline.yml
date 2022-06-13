@@ -22,7 +22,7 @@ jobs:
 
     # Update Node
     - name: Version Node
-      run: npm install node --global
+      run: npm install node
 
     # Check Node Version
     - name: Version Node
