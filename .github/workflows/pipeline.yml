@@ -22,11 +22,11 @@ jobs:
 
     # Update Node
     - name: Version Node
-      run: npm install
+      run: npm install node
 
     # Check Node Version
     - name: Version Node
-      run: npm --version
+      run: node --version
 
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
