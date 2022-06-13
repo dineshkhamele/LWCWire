@@ -22,7 +22,7 @@ jobs:
 
     # Update Node
     - name: Version Node
-      run: npm install node
+      run: npm install node --global
 
     # Check Node Version
     - name: Version Node
@@ -41,7 +41,7 @@ jobs:
         CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
         USERNAME: ${{ secrets.SALESFORCEPRODUSERNAME }}
         INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
-      run: sfdx force:auth:jwt:grant --clientid $CLIENT_ID --jwtkeyfile ./buildfiles/server.key --username $USERNAME --instanceurl $INSTANCE_URL -a prod
+      run: sfdx force:auth:jwt:grant --clientid $CLIENT_ID --jwtkeyfile .\buildfiles\server.key --username $USERNAME --instanceurl $INSTANCE_URL -a prod
 
     # Convert to Deploy Source
     - name: Convert to Deploy Source
@@ -51,6 +51,3 @@ jobs:
     - name: Run Validation on Deploy Source
       run: sfdx force:mdapi:deploy -l RunLocalTests -c -d ./toDeploy -u prod -w 10
     
-    # Deploy
-    - name : Deploy to SF Org
-      run: sfdx force:mdapi:deploy -l RunLocalTests -d ./toDeploy -u prod -w 10
