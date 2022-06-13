@@ -37,7 +37,7 @@ jobs:
 
     # Show files
     - name: Show files
-      run: npm install sfdx-cli 
+      run: ls -l 
 
     # Authorize SF Org
     - name: Authorize SF Org
