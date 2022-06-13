@@ -19,16 +19,17 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
 
     # Update Node
-    - name: Update Node
-      run: npm update
+    - name: Version Node
+      run: npm install
 
     # Check Node Version
     - name: Version Node
       run: npm --version
+
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
 
     # Setup Node
     - name: Setup Node
