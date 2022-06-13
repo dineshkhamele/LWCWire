@@ -35,6 +35,10 @@ jobs:
     - name: Install SFDX CLI
       run: npm install sfdx-cli --global
 
+    # PWD
+    - name: PWD
+      run: pwd 
+
     # Show files
     - name: Show files
       run: ls -l 
@@ -45,7 +49,7 @@ jobs:
         CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
         USERNAME: ${{ secrets.SALESFORCEPRODUSERNAME }}
         INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
-      run: sfdx force:auth:jwt:grant --clientid $CLIENT_ID --jwtkeyfile ".\buildfiles\server.key" --username $USERNAME --instanceurl $INSTANCE_URL -a prod
+      run: sfdx force:auth:jwt:grant --json --clientid $CLIENT_ID --jwtkeyfile ./buildfiles/server.key --username $USERNAME --instanceurl $INSTANCE_URL
 
     # Convert to Deploy Source
     - name: Convert to Deploy Source
