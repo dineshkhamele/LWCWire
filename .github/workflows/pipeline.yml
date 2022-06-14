@@ -41,8 +41,13 @@ jobs:
     - name: 'Populate auth file with SFDX_URL secret of integration org'
       shell: bash
       run: echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
-        
-   # Authenticate to org using the URL stored in the text file
-    - name: 'Authenticate to Integration Org'
-      run: sfdx auth:sfdxurl:store -f authFile.json
 
+ # Authorize SF Org
+    - name: Authorize SF Org
+      env:
+        CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
+        USERNAME: ${{ secrets.SALESFORCEPRODUSERNAME }}
+        INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
+      run: sfdx force:auth:jwt:grant --clientid $CLIENT_ID -f server.key --username $USERNAME --instanceurl $INSTANCE_URL -a prod
+
+  
