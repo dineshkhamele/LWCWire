@@ -4,7 +4,7 @@ name: Deploy to Salesforce Pipeline
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-on:
+on: 
   push:
     branches: [ master ]
   pull_request:
@@ -19,50 +19,30 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-
-    # Update Node
-    - name: Update node
-      run: npm install node
-
-    # Check Node Version
-    - name: Version Node
-      run: node --version
-
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Now Install Salesforce CLI
+    # Now we install nodejs in the VM, and specify version 14
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    
+   # Now Install Salesforce CLI
     - name: 'Install Salesforce CLI'
-    run: |
+      run: |
           wget https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz
           mkdir ~/sfdx
           tar xJf sfdx-linux-x64.tar.xz -C ~/sfdx --strip-components 1
           echo "$HOME/sfdx/bin" >> $GITHUB_PATH
           ~/sfdx/bin/sfdx version
 
-    # The URL is stored in the Github Secret named SFDX_INTEGRATION_URL
-    # so here we store the URL into a text file   
+   # The URL is stored in the Github Secret named SFDX_INTEGRATION_URL
+   # so here we store the URL into a text file
     - name: 'Populate auth file with SFDX_URL secret of integration org'
-    shell: bash
-    run: |
-            echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
-    # Authenticate to org using the URL stored in the text file
+      shell: bash
+      run: echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
+        
+   # Authenticate to org using the URL stored in the text file
     - name: 'Authenticate to Integration Org'
-    run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a din_personal
+      run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a din_personal
 
-    # PWD
-    - name: PWD
-      run: pwd 
-
-    # Show files
-    - name: Show files
-      run: ls -l 
-      
-    # Convert to Deploy Source
-    - name: Convert to Deploy Source
-      run: sfdx force:source:convert -r ./force-app -d ./toDeploy
-    
-    # Run Validation of Deploy Source
-    - name: Run Validation on Deploy Source
-      run: sfdx force:mdapi:deploy -l RunLocalTests -c -d ./toDeploy -u prod -w 10
-    
