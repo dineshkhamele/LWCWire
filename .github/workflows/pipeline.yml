@@ -7,8 +7,6 @@ on:
       - main
     paths:
         - 'force-app/**'
-    paths-ignore:
-      - '**.md'
   pull_request:
     paths-ignore:
       - '**.md'
