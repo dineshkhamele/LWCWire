@@ -49,6 +49,6 @@ jobs:
         CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
         USERNAME: ${{ secrets.SALESFORCEPRODUSERNAME }}
         INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
-      run: sfdx force:auth:jwt:grant --clientid $CLIENT_ID -f server.key --username $USERNAME --instanceurl $INSTANCE_URL -a prod
+      run: sfdx force:auth:jwt:grant --clientid $CLIENT_ID -f /home/runner/work/LWCWire/LWCWire/server.key --username $USERNAME --instanceurl $INSTANCE_URL -a prod
 
   
