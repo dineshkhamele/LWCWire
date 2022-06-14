@@ -36,6 +36,7 @@ jobs:
           echo "$HOME/sfdx/bin" >> $GITHUB_PATH
           ~/sfdx/bin/sfdx version
           pwd
+          ls -l
 
    # The URL is stored in the Github Secret named SFDX_INTEGRATION_URL
    # so here we store the URL into a text file
@@ -49,4 +50,4 @@ jobs:
         CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
         USERNAME: ${{ secrets.SALESFORCEPRODUSERNAME }}
         INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
-      run: sfdx auth:jwt:grant --clientid $CLIENT_ID --jwtkeyfile '/home/runner/work/LWCWire/LWCWire/server.key' --username $USERNAME --instanceurl $INSTANCE_URL -a prod
+      run: sfdx auth:jwt:grant --clientid $CLIENT_ID --jwtkeyfile server.key --username $USERNAME --instanceurl $INSTANCE_URL -a prod
