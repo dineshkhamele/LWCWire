@@ -31,9 +31,24 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Install SFDX CLI
-    - name: Install SFDX CLI
-      run: npm install sfdx-cli --global
+    # Now Install Salesforce CLI
+    - name: 'Install Salesforce CLI'
+    run: |
+          wget https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz
+          mkdir ~/sfdx
+          tar xJf sfdx-linux-x64.tar.xz -C ~/sfdx --strip-components 1
+          echo "$HOME/sfdx/bin" >> $GITHUB_PATH
+          ~/sfdx/bin/sfdx version
+
+    # The URL is stored in the Github Secret named SFDX_INTEGRATION_URL
+    # so here we store the URL into a text file   
+    - name: 'Populate auth file with SFDX_URL secret of integration org'
+    shell: bash
+    run: |
+            echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
+    # Authenticate to org using the URL stored in the text file
+    - name: 'Authenticate to Integration Org'
+    run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a din_personal
 
     # PWD
     - name: PWD
@@ -42,15 +57,7 @@ jobs:
     # Show files
     - name: Show files
       run: ls -l 
-
-    # Authorize SF Org
-    - name: Authorize SF Org
-      env:
-        CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
-        USERNAME: ${{ secrets.SALESFORCEPRODUSERNAME }}
-        INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
-      run: sfdx force:auth:jwt:grant --json --clientid $CLIENT_ID --jwtkeyfile server.key --username $USERNAME --instanceurl $INSTANCE_URL
-
+      
     # Convert to Deploy Source
     - name: Convert to Deploy Source
       run: sfdx force:source:convert -r ./force-app -d ./toDeploy
