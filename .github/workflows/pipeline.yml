@@ -44,5 +44,5 @@ jobs:
         
    # Authenticate to org using the URL stored in the text file
     - name: 'Authenticate to Integration Org'
-      run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a din_personal
+      run: sfdx auth:sfdxurl:store -f authFile.json
 
