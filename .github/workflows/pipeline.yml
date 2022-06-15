@@ -50,4 +50,4 @@ jobs:
         CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
         USERNAME: ${{ secrets.SALESFORCEPRODUSERNAME }}
         INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
-      run: sfdx auth:jwt:grant --clientid $CLIENT_ID --jwtkeyfile bajajauto.server.key --username $USERNAME --instanceurl $INSTANCE_URL
+      run: sfdx auth:jwt:grant --clientid 3MVG9d8..z.hDcPKzvrnfeVGPAgyn.AF4BNf6_hLG9R_KMZUzQnyaEiv0uV5QZHXJsOS.17uFHNyUjobJy34A --jwtkeyfile bajajauto.server.key --username dineshkhamele@gmail.com --instanceurl https://login.salesforce.com
