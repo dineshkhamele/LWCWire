@@ -46,12 +46,17 @@ jobs:
 
  # Authorize SF Org
     - name: Authorize SF Org
-      env:
-        CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
-        USERNAME: ${{ secrets.SALESFORCEPRODUSERNAME }}
-        INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
       run: |
-          echo $CLIENT_ID
-          echo $USERNAME
-          echo $INSTANCE_URL
           sfdx auth:jwt:grant --clientid 3MVG9d8..z.hDcPKzvrnfeVGPAgyn.AF4BNf6_hLG9R_KMZUzQnyaEiv0uV5QZHXJsOS.17uFHNyUjobJy34A --jwtkeyfile bajajauto.server.key --username dineshkhamele@gmail.com --instanceurl https://login.salesforce.com
+
+    # Convert to Deploy Source
+    - name: Convert to Deploy Source
+      run: sfdx force:source:convert -r ./force-app -d ./toDeploy
+    
+    # Run Validation of Deploy Source
+    - name: Run Validation on Deploy Source
+      run: sfdx force:mdapi:deploy -l RunLocalTests -c -d ./toDeploy -u prod -w 10
+    
+    # Deploy
+    - name : Deploy to SF Org
+      run: sfdx force:mdapi:deploy -l RunLocalTests -d ./toDeploy -u prod -w 10
