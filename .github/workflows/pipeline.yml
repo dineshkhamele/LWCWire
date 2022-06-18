@@ -56,4 +56,4 @@ jobs:
 
     # Deploy
     - name : Deploy to SF Org
-      run: sfdx force:mdapi:deploy -l RunLocalTests -d ./toDeploy -u dineshkhamele@gmail.com -w 10
+      run: sfdx force:mdapi:deploy -d ./toDeploy -u dineshkhamele@gmail.com -w 10
