@@ -55,8 +55,8 @@ jobs:
     
     # Run Validation of Deploy Source
     - name: Run Validation on Deploy Source
-      run: sfdx force:mdapi:deploy -l RunLocalTests -c -d ./toDeploy -u prod -w 10
+      run: sfdx force:mdapi:deploy -l RunLocalTests -c -d ./toDeploy -u dineshkhamele@gmail.com -w 10
     
     # Deploy
     - name : Deploy to SF Org
-      run: sfdx force:mdapi:deploy -l RunLocalTests -d ./toDeploy -u prod -w 10
+      run: sfdx force:mdapi:deploy -l RunLocalTests -d ./toDeploy -u dineshkhamele@gmail.com -w 10
