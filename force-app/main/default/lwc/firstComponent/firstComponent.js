@@ -1,14 +1,12 @@
-import { LightningElement } from 'lwc';
+import { LightningElement } from "lwc";
 
 export default class FirstComponent extends LightningElement {
+  varP;
 
-   varP;
-
-   constructor(){
-      super();
-      this.varP = (this instanceof LightningElement) && (LightningElement instanceOf HTMLElement);
-
-   }
-
-
+  constructor() {
+    super();
+    this.varP =
+      this instanceof LightningElement &&
+      LightningElement instanceof HTMLElement;
+  }
 }
