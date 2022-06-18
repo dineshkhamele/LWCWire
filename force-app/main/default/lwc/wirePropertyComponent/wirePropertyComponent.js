@@ -1,7 +1,5 @@
-import {LightningElement, wire, track} from 'lwc';
-import accountclass from '@salesforce/apex/Acountclass.accountclass';
+import { LightningElement, track } from "lwc";
 export default class AccountListLWC extends LightningElement {
-   @track accounts;
-   @track error;
-   @wire(accountclass) accounts;
+  @track accounts;
+  @track error;
 }
