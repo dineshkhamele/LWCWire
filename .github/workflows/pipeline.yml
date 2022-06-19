@@ -64,6 +64,6 @@ jobs:
 
     - name: 'Check-only deploy delta changes'
       run: |
-            sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --json
+            sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --json -u dineshkhamele@gmail.com
     - name: 'Deploy destructive changes (if any)'
-      run: sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings
+      run: sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings -u dineshkhamele@gmail.com
