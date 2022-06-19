@@ -38,32 +38,7 @@ jobs:
           pwd
           ls -l
 
-    - name: 'Installing sfdx git delta'
-      run: | 
-             echo y | sfdx plugins:install sfdx-git-delta
-             sfdx plugins 
-      
-     # Install java as it is required for the next step
-    - name: 'Installing java'
-      run: sudo apt-get install openjdk-8-jdk
-
           sfdx auth:jwt:grant --clientid 3MVG9d8..z.hDcPKzvrnfeVGPAgyn.AF4BNf6_hLG9R_KMZUzQnyaEiv0uV5QZHXJsOS.17uFHNyUjobJy34A --jwtkeyfile bajajauto.server.key --username dineshkhamele@gmail.com --instanceurl https://login.salesforce.com
 
- # We use SFDX Git Delta to create a directory with only the metadata that has changed.
-            # this allows us to deploy only those changes, as opposed to deploying the entire branch. 
-            # This helps reducing deployment times
-    - name: 'Create delta packages for new, modified or deleted metadata'
-      run: | 
-                  mkdir changed-sources
-                  sfdx sgd:source:delta --to "HEAD" --from "HEAD" --output changed-sources/ --generate-delta --source force-app/ 
-            # Now we can use the sfdx scanner to scan the code in the delta directory
-            # The output of the scan is stored in a file called apexScanResults.sarif
-
-            # The .sarif file can later be uploaded to github, so that we can see the 
-            # results of the scan directly from the PR.
-
     - name: 'Check-only deploy delta changes'
-      run: |
-            sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --json -u dineshkhamele@gmail.com
-    - name: 'Deploy destructive changes (if any)'
-      run: sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings -u dineshkhamele@gmail.com
+      run: sfdx force:source:deploy -x ./manifest/package.xml --targetusername dineshkhamele@gmail.com
